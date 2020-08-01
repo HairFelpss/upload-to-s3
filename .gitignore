@@ -1,5 +1,4 @@
 node_modules/*
-app/*
 .env
 # OS generated files #
 ######################
