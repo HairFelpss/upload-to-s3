@@ -1,0 +1,22 @@
+{
+  "name": "s3Upload",
+  "version": "0.0.1",
+  "description": "convert to web3, zip and upload to s3",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Felipe Alves",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "aws-sdk": "^2.725.0",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "express": "^3.4.8",
+    "http": "0.0.1-security",
+    "request": "^2.88.2",
+    "unzipper": "^0.10.11",
+    "webp-bin": "~0.1.4",
+    "zip-local": "^0.3.4"
+  }
+}
