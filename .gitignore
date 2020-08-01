@@ -1,5 +1,8 @@
 node_modules/*
-
+app/_tmp
+app/assets
+app/zipgerado
+app/zippng
 .env
 # OS generated files #
 ######################
