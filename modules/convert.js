@@ -53,17 +53,17 @@ const sendToS3 = async (pack, lang) => {
     return;
   } finally {
     try {
-      fs.unlink('./app/zipgerado/' + pack.packId + '.zip', () =>
-        console.log('zipgerado file deleted')
+      await fs.unlink('./app/zipgerado/' + pack.packId + '.zip', () =>
+        console.log(pack.packId, ' zipgerado file deleted')
       );
-      fs.unlink('./app/zippng/' + pack.packId + '.zip', () =>
-        console.log('zippng file deleted')
+      await fs.unlink('./app/zippng/' + pack.packId + '.zip', () =>
+        console.log(pack.packId, ' zippng file deleted')
       );
-      fs.rmdir('./app/assets/' + pack.packId, { recursive: true }, () =>
-        console.log('assets folder deleted')
+      await fs.rmdir('./app/assets/' + pack.packId, { recursive: true }, () =>
+        console.log(pack.packId, ' assets folder deleted')
       );
-      fs.rmdir('./app/_tmp/' + pack.packId, { recursive: true }, () =>
-        console.log('_tmp folder deleted')
+      await fs.rmdir('./app/_tmp/' + pack.packId, { recursive: true }, () =>
+        console.log(pack.packId, ' _tmp folder deleted')
       );
 
       console.log('=============================================');
