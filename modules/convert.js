@@ -1,8 +1,8 @@
 require('dotenv/config');
 
 const fs = require('fs');
-const execFile = require('child_process').execFile;
-const binPath = require('webp-bin').path;
+const { execFile } = require('child_process');
+const cwebp = require('cwebp-bin');
 const zipper = require('zip-local');
 
 const AWS = require('aws-sdk');
@@ -84,23 +84,17 @@ const convert = function (eventEmitter) {
 
     //Magic happens...
     execFile(
-      binPath,
-      (
-        './app/assets/' +
-        pack.packId +
-        '/' +
-        fileName +
-        '.png -q 80 -o ./app/_tmp/' +
-        pack.packId +
-        '/' +
-        fileName +
-        '.webp'
-      ).split(/\s+/),
-      function (err, stdout, stderr) {
+      cwebp,
+      [
+        './app/assets/' + pack.packId + '/' + fileName + '.png',
+        '-o',
+        './app/_tmp/' + pack.packId + '/' + fileName + '.webp',
+      ],
+      (err) => {
         if (err) {
-          console.log('err => ', err);
-          return;
+          console.log(err);
         }
+
         currentFileIndex++;
         if (currentFileIndex < files.length) {
           convertFile(pack, lang);
