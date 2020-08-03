@@ -27,15 +27,13 @@ const sendToS3 = async (pack, lang) => {
         ContentType: 'file/zip',
       })
       .promise();
-    console.log(response);
 
     const packsInsert = `
       INSERT INTO packs (id_pack, name, publisher, url_base, url_zip, lang, created_on)
       VALUES ('${pack.packId}', '${pack.name}', '${pack.authorName}',
               '${pack.resourceUrlPrefix}', '${
       response.Location
-    }', '${lang}', '${new Date().toUTCString()}')
-              RETURNING "id_pack"
+    }', '${lang}', '${new Date().toUTCString()}') ON CONFLICT (id_pack) DO NOTHING;
     `;
 
     await client.query(packsInsert);
@@ -45,7 +43,7 @@ const sendToS3 = async (pack, lang) => {
       INSERT INTO stickers (id_pack, image_name, created_on)
       VALUES ('${
         pack.packId
-      }', '${name}', '${new Date().toUTCString()}')  RETURNING "image_name"
+      }', '${name}', '${new Date().toUTCString()}') ON CONFLICT (id_pack, image_name) DO NOTHING;
     `;
 
       await client.query(stickersInsert);
@@ -67,6 +65,10 @@ const sendToS3 = async (pack, lang) => {
       fs.rmdir('./app/_tmp/' + pack.packId, { recursive: true }, () =>
         console.log('_tmp folder deleted')
       );
+
+      console.log('=============================================');
+      console.log(pack.packId, ' finished');
+      console.log('=============================================');
     } catch (err) {
       console.log('err => ', err);
     }
