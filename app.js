@@ -57,10 +57,10 @@ function continua(pack, lang) {
   });
 }
 
-const filterAndCreatePacks = (arr, lang) => {
+const filterAndCreatePacks = async (arr, lang) => {
   try {
     for (const pack of arr) {
-      continua(pack, lang);
+      await continua(pack, lang);
     }
   } catch (err) {
     console.log('err => ', err);
