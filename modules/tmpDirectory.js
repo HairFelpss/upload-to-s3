@@ -1,4 +1,4 @@
-var fs = require("fs");
+var fs = require('fs');
 
 var tmpDirectory = function (eventEmitter) {
   //Remove all files in a given directory
@@ -10,7 +10,7 @@ var tmpDirectory = function (eventEmitter) {
     }
     if (files.length > 0)
       for (let i = 0; i < files.length; i++) {
-        const filePath = dirPath + "/" + files[i];
+        const filePath = dirPath + '/' + files[i];
         if (fs.statSync(filePath).isFile()) fs.unlinkSync(filePath);
         else rmDir(filePath);
       }
