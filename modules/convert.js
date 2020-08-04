@@ -29,7 +29,7 @@ const sendToS3 = async (pack, lang) => {
       .promise();
 
     const packsInsert = `
-      INSERT INTO packs (id_pack, name, publisher, url_base, url_zip, lang, created_on)
+      INSERT INTO packs (id_pack, name, publisher, url_base, url_zip, lang, created_at)
       VALUES ('${pack.packId}', '${pack.name}', '${pack.authorName}',
               '${pack.resourceUrlPrefix}', '${
       response.Location
@@ -40,7 +40,7 @@ const sendToS3 = async (pack, lang) => {
 
     for (const name of pack.resourceFiles) {
       const stickersInsert = `
-      INSERT INTO stickers (id_pack, image_name, created_on)
+      INSERT INTO stickers (id_pack, image_name, created_at)
       VALUES ('${
         pack.packId
       }', '${name}', '${new Date().toUTCString()}') ON CONFLICT (id_pack, image_name) DO NOTHING;
