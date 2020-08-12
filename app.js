@@ -23,20 +23,33 @@ const mainFunc = async () => {
 };
 
 const makeRequest = async () => {
-  const languages = ['pt-Br;pt', 'es-Es;es', 'en-Us;en'];
-  for (const lang of languages) {
-    return {
-      pack: await axios.get('http://api.sticker.ly/v1/stickerPack/recommend', {
-        headers: {
-          'User-Agent': `androidapp.stickerly/1.9.8 (SM-K; U; Android 29; ${lang})`,
-        },
-      }),
-      lang,
-    };
-  }
+  //const languages = ['pt-Br;pt', 'es-Es;es', 'en-Us;en'];
+  return {
+    pack: await axios.get('http://api.sticker.ly/v1/stickerPack/recommend', {
+      headers: {
+        'User-Agent': `androidapp.stickerly/1.9.8 (SM-K; U; Android 29; en-Us;en)`,
+      },
+    }),
+    lang: 'en-Us;en',
+  };
 };
 
 function continua(pack, lang) {
+  if (
+    pack.name.match(/virus/) ||
+    pack.name.match(/corona/) ||
+    pack.name.match(/quarentena/) ||
+    pack.name.match(/quarentine/) ||
+    pack.name.match(/covid/) ||
+    pack.name.match(/pandemic/) ||
+    pack.authorName.match(/virus/) ||
+    pack.authorName.match(/corona/) ||
+    pack.authorName.match(/quarentena/) ||
+    pack.authorName.match(/quarentine/) ||
+    pack.authorName.match(/covid/) ||
+    pack.authorName.match(/pandemic/)
+  )
+    return;
   tmpDirectory.init('./app/_tmp/' + pack.packId);
   tmpDirectory.init('./app/assets/' + pack.packId);
   const file = fs.createWriteStream('./app/zippng/' + pack.packId + '.zip');
