@@ -96,7 +96,6 @@ const convert = function (eventEmitter) {
         if (err) {
           console.log(err);
         }
-
         currentFileIndex++;
         if (currentFileIndex < files.length) {
           convertFile(pack, lang);
